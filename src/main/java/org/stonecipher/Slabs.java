@@ -1,17 +1,19 @@
 package org.stonecipher;
 
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import org.stonecipher.slabs.SlabEventHandler;
+
+import java.util.ArrayList;
 
 public class Slabs extends JavaPlugin {
 
@@ -64,8 +66,17 @@ public class Slabs extends JavaPlugin {
 
 	public ItemMeta getAdjustedMeta(ItemMeta meta) {
 		meta.setDisplayName("Upside Down Slab");
-		meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		ArrayList<String> lore = new ArrayList<String>();
+		lore.add(ChatColor.BOLD + "UpsiDowner");
+		meta.setLore(lore);
 		return meta;
+	}
+
+	public static boolean hasSlabLore(ItemMeta meta) {
+		if (meta.getLore().contains(ChatColor.BOLD + "UpsiDowner")) {
+			return true;
+		}
+		return false;
 	}
 
 	public static boolean isSlab(Material mat){

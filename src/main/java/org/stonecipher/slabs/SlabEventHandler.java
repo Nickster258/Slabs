@@ -12,12 +12,11 @@ public class SlabEventHandler  implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
-		if((event.getItemInHand().getItemMeta().getDisplayName().equals("Upside Down Slab"))){
-			if(Slabs.isSlab(event.getBlockPlaced().getBlockData().getMaterial())) {
+		if(Slabs.isSlab(event.getBlockPlaced().getBlockData().getMaterial())) {
+			if(Slabs.hasSlabLore(event.getItemInHand().getItemMeta())){
 				SetInverted(event.getBlockPlaced());
 			}
 		}
-
 	}
 	
 	public void SetInverted(Block b){
