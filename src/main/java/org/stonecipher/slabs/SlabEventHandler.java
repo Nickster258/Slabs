@@ -1,36 +1,29 @@
-package chibill.slabs.slabs;
+package org.stonecipher.slabs;
 
 import org.bukkit.block.Block;
-import org.bukkit.enchantments.Enchantment;
+import org.bukkit.block.data.type.Slab;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 
-import chibill.slabs.Main;
+import org.stonecipher.Slabs;
 
 public class SlabEventHandler  implements Listener {
 
-
-	
-	public SlabEventHandler() {
-		
-	}
-
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
-		if(Main.isSlab(event.getBlockPlaced().getState().getData())){
+		if(Slabs.isSlab(event.getBlockPlaced().getBlockData().getMaterial())) {
 			if( (event.getItemInHand().getItemMeta().getDisplayName().equals("Upside Down Slab"))){
 				SetInverted(event.getBlockPlaced());
 			}
 		}
-		
+
 	}
 	
 	public void SetInverted(Block b){
-		int dat = b.getData() & 0x7;
-		dat |= 8;
-		b.setData((byte) dat);
-		b.getState().update();
+		Slab data = (Slab) b.getBlockData();
+		data.setType(Slab.Type.TOP);
+		b.setBlockData(data);
 	}
 	
 }
