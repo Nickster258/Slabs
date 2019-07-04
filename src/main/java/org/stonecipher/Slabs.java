@@ -73,6 +73,7 @@ public class Slabs extends JavaPlugin {
 	}
 
 	public static boolean hasSlabLore(ItemMeta meta) {
+		if (!meta.hasLore()) return false;
 		if (meta.getLore().contains(ChatColor.BOLD + "UpsiDowner")) {
 			return true;
 		}
