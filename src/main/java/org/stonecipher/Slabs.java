@@ -22,53 +22,50 @@ public class Slabs extends JavaPlugin {
 	}
 
 	@Override
-	public void onDisable() {
-	
-	}
-
-	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("slab-version")) {
-			sender.sendMessage("Slabs by Chibill");
-			sender.sendMessage("Version: "+this.getDescription().getVersion());
+			sendMessage(sender, "Slabs by Chibill - Maintained by Nickster258");
+			sendMessage(sender, "Version: " + this.getDescription().getVersion());
 		}
 
 		if (cmd.getName().equalsIgnoreCase("slab")) {
 
 			if(!(sender instanceof Player)) {
-				sender.sendMessage("This command can only be ran from ingame.");
+				sendMessage(sender, "This command can only be ran from ingame.");
 				return true;
 			}
 
 			Player player = (Player) sender;
 
-			ItemStack item = player.getInventory().getItemInMainHand();
+			ItemStack hand = player.getInventory().getItemInMainHand();
 
-			if (isSlab(item.getType())) {
-				player.getInventory().remove(item);
-				ItemMeta meta = item.getItemMeta();
-				meta.setDisplayName("Upside Down Slab");
-				meta.addEnchant(Enchantment.DURABILITY, 1, false);
-				item.setItemMeta(meta);
-				player.getInventory().addItem(item);
-				sender.sendMessage("Your requested slab is now in your hand");
-			}else {
+			if (isSlab(hand.getType())) {
+				player.getInventory().remove(hand);
+				hand.setItemMeta(getAdjustedMeta(hand.getItemMeta()));
+				player.getInventory().addItem(hand);
+				sendMessage(sender, "Your requested slab is now in your hand.");
+			} else {
 				if (player.getGameMode() != GameMode.SURVIVAL) {
-					ItemStack item1 = new ItemStack(Material.STONE_SLAB);
-					ItemMeta meta = item1.getItemMeta();
-					meta.setDisplayName("Upside Down Slab");
-					meta.addEnchant(Enchantment.DURABILITY, 1, false);
-					item1.setItemMeta(meta);
-					player.getInventory().addItem(item1);
-					sender.sendMessage("Your requested slab has been added inventory.");
+					ItemStack item = new ItemStack(Material.STONE_SLAB);
+					item.setItemMeta(getAdjustedMeta(item.getItemMeta()));
+					player.getInventory().addItem(item);
+					sendMessage(sender, "Your requested slab has been added inventory.");
 				} else if (sender.hasPermission("Slab.survival")) {
-						sender.sendMessage("You must have a slab in your hand to get an Upside Down slab in Survival");
+					sendMessage(sender, "You must have a slab in your hand to get an Upside Down slab in Survival");
 				}
 			}
-
-			return true;
 		}
 		return true;
+	}
+
+	public void sendMessage(CommandSender sender, String message) {
+		sender.sendMessage("§8[§7Slabs§8] §r" + message);
+	}
+
+	public ItemMeta getAdjustedMeta(ItemMeta meta) {
+		meta.setDisplayName("Upside Down Slab");
+		meta.addEnchant(Enchantment.DURABILITY, 1, false);
+		return meta;
 	}
 
 	public static boolean isSlab(Material mat){
