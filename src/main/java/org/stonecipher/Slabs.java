@@ -42,6 +42,10 @@ public class Slabs extends JavaPlugin {
 			ItemStack hand = player.getInventory().getItemInMainHand();
 
 			if (isSlab(hand.getType())) {
+				if (hasSlabLore(hand.getItemMeta())) {
+					sendMessage(sender, "Slab already exists in hand.");
+					return true;
+				}
 				player.getInventory().remove(hand);
 				hand.setItemMeta(getAdjustedMeta(hand.getItemMeta()));
 				player.getInventory().setItemInMainHand(hand);
@@ -73,7 +77,9 @@ public class Slabs extends JavaPlugin {
 	}
 
 	public static boolean hasSlabLore(ItemMeta meta) {
-		if (!meta.hasLore()) return false;
+		if (!meta.hasLore()) {
+			return false;
+		}
 		if (meta.getLore().contains(ChatColor.BOLD + "UpsiDowner")) {
 			return true;
 		}
