@@ -44,7 +44,7 @@ public class Slabs extends JavaPlugin {
 			if (isSlab(hand.getType())) {
 				player.getInventory().remove(hand);
 				hand.setItemMeta(getAdjustedMeta(hand.getItemMeta()));
-				player.getInventory().addItem(hand);
+				player.getInventory().setItemInMainHand(hand);
 				sendMessage(sender, "Your requested slab is now in your hand.");
 			} else {
 				if (player.getGameMode() != GameMode.SURVIVAL) {
