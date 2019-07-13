@@ -8,19 +8,20 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.stonecipher.slabs.SlabBlock;
 
-public class SlabEventHandler  implements Listener {
+public class SlabEventHandler implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
 		Block toPlace = event.getBlockPlaced();
 		BlockData data = toPlace.getBlockData();
-		if(SlabBlock.isSlab(data.getMaterial()) && SlabBlock.hasSlabLore(event.getItemInHand().getItemMeta())){
-			if(!slabExists(event)) {
+		if (SlabBlock.isSlab(data.getMaterial()) && SlabBlock.hasSlabLore(event.getItemInHand().getItemMeta())) {
+			if (!slabExists(event)) {
 				SetInverted(event.getBlockPlaced());
 			} else {
 				Slab slab = (Slab) toPlace.getBlockData();
 				slab.setType(Slab.Type.DOUBLE);
-				toPlace.setBlockData(slab); }
+				toPlace.setBlockData(slab);
+			}
 		}
 	}
 
