@@ -35,6 +35,7 @@ public class Slabs extends JavaPlugin {
 	public void registerSlabEnchant() {
 
 		Enchantment slabEnchant = new SlabEnchantment(key);
+
 		try {
 			Field acceptingNew = Enchantment.class.getDeclaredField("acceptingNew");
 			acceptingNew.setAccessible(true);

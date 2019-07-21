@@ -12,8 +12,11 @@ public class SlabEventHandler implements Listener {
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event){
+
 		Block toPlace = event.getBlockPlaced();
+		
 		BlockData data = toPlace.getBlockData();
+
 		if (SlabBlock.isSlab(data.getMaterial()) && SlabBlock.hasSlabLore(event.getItemInHand().getItemMeta())) {
 			if (!slabExists(event)) {
 				SetInverted(event.getBlockPlaced());
@@ -23,6 +26,7 @@ public class SlabEventHandler implements Listener {
 				toPlace.setBlockData(slab);
 			}
 		}
+
 	}
 
 	public boolean slabExists(BlockPlaceEvent event) {

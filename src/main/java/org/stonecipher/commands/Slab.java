@@ -14,8 +14,9 @@ import org.stonecipher.slabs.SlabBlock;
 public class Slab implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+
         if (!(commandSender instanceof Player)) {
-            Slabs.sendMessage(commandSender, "This command can only be ran from ingame.");
+            Slabs.sendMessage(commandSender, "This command can only be ran ingame.");
             return true;
         }
 
@@ -27,16 +28,17 @@ public class Slab implements CommandExecutor {
 
         if (!hand.getType().equals(Material.AIR) && SlabBlock.hasSlabLore(hand.getItemMeta())){
             Slabs.sendMessage(commandSender, "An UpsiDowner slab is already in hand.");
-        } else if(slab.isValid()) {
+        } else if (slab.isValid()) {
             player.getInventory().remove(hand);
             player.getInventory().setItemInMainHand(slab.getSlab());
             Slabs.sendMessage(commandSender, "Your requested slab is now in your hand.");
         } else if (player.getGameMode() == GameMode.SURVIVAL) {
-            Slabs.sendMessage(commandSender, "You must have a slab in your hand to get an Upside Down slab in Survival");
+            Slabs.sendMessage(commandSender, "You must have a slab in your hand to get an Upside Down slab in Survival.");
         } else {
             player.getInventory().addItem(new SlabBlock(Material.STONE_SLAB).getSlab());
-            Slabs.sendMessage(commandSender, "Your requested slab has been added inventory.");
+            Slabs.sendMessage(commandSender, "Your requested slab has been added to your inventory.");
         }
+
         return true;
 
     }
