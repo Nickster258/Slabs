@@ -35,7 +35,7 @@ public class Slab implements CommandExecutor {
         } else if (player.getGameMode() == GameMode.SURVIVAL) {
             Slabs.sendMessage(commandSender, "You must have a slab in your hand to get an Upside Down slab in Survival.");
         } else {
-            player.getInventory().addItem(new SlabBlock(Material.STONE_SLAB).getSlab());
+            player.getInventory().addItem(new SlabBlock(Material.SMOOTH_STONE_SLAB).getSlab());
             Slabs.sendMessage(commandSender, "Your requested slab has been added to your inventory.");
         }
 
