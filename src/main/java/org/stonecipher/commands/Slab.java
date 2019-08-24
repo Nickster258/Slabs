@@ -26,7 +26,14 @@ public class Slab implements CommandExecutor {
 
         SlabBlock slab = new SlabBlock(hand.getType());
 
-        if (!hand.getType().equals(Material.AIR) && SlabBlock.hasSlabLore(hand.getItemMeta())){
+        if (strings.length > 0) {
+            Material mat = Material.getMaterial(strings[0].toUpperCase());
+            if ((mat != null) && (mat.isBlock()) && (mat.createBlockData() instanceof org.bukkit.block.data.type.Slab)) {
+                player.getInventory().addItem(new SlabBlock(mat).getSlab());
+            } else {
+                Slabs.sendMessage(commandSender, "Invalid material type specified.");
+            }
+        } else if (!hand.getType().equals(Material.AIR) && SlabBlock.hasSlabLore(hand.getItemMeta())) {
             Slabs.sendMessage(commandSender, "An UpsiDowner slab is already in hand.");
         } else if (slab.isValid()) {
             player.getInventory().remove(hand);

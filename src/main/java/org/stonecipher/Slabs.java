@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.stonecipher.commands.Version;
 import org.stonecipher.commands.Slab;
 import org.stonecipher.events.SlabEventHandler;
+import org.stonecipher.commands.SlabTabCompleter;
 import org.stonecipher.slabs.SlabEnchantment;
 
 import java.lang.reflect.Field;
@@ -29,6 +30,7 @@ public class Slabs extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new SlabEventHandler(), this);
 		getCommand("slab-version").setExecutor(new Version());
 		getCommand("slab").setExecutor(new Slab());
+		getCommand("slab").setTabCompleter(new SlabTabCompleter());
 
 	}
 
